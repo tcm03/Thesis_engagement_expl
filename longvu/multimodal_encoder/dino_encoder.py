@@ -25,7 +25,7 @@ class DinoVisionTower(BaseVisionTower):
 
     def load_model(self, device_map=None):
 
-        self.vision_tower = Dinov2Model.from_pretrained(self.vision_tower_name)
+        self.vision_tower = Dinov2Model.from_pretrained(self.vision_tower_name, device_map=device_map)
         """ValueError: Dinov2Model does not support `device_map='auto'`. To implement support, the model class needs to implement the `_no_split_modules` attribute."""
         self.vision_tower._no_split_modules = ["Dinov2SwiGLUFFN"]
 

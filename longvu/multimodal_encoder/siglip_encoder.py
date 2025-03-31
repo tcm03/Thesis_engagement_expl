@@ -25,7 +25,7 @@ class SiglipVisionTower(BaseVisionTower):
     def load_model(self, device_map=None):
         self.vision_model = "siglip"
         # clip_model, processor = create_model_from_pretrained(self.vision_tower_name)
-        self.vision_tower = SiglipVisionModel.from_pretrained(self.vision_tower_name)
+        self.vision_tower = SiglipVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
 
         # self.vision_tower = clip_model.visual.trunk
         self.vision_tower.output_tokens = True
