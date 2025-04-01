@@ -108,10 +108,12 @@ class DinoVisionTower(BaseVisionTower):
 
     def _forward(self, images):
         # logger.warning(f"images shape: {images.shape}")
+        print(f"dino: images.dtype: {images.dtype}")
         with torch.set_grad_enabled(self.unfreeze_mm_vision_tower):
             image_forward_outs = self.vision_tower.forward(
                 images.to(device=self.device, dtype=self.dtype)
             )
+            print(f"dino: image_forward_outs.dtype: {image_forward_outs.dtype}")
             # logger.warning(f"image_forward_outs shape: {image_forward_outs['last_hidden_state'].shape}")
             image_features = self.feature_select(image_forward_outs).to(images.dtype)
             # logger.warning(f"image_features shape: {image_features.shape}")
