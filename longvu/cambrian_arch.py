@@ -830,6 +830,7 @@ class CambrianMetaForCausalLM(ABC):
             image_aux_features_dino = self.encode_images(
                 new_image_aux_list, encode_type="dino"
             )
+            print(f"cambrian_arch: image_aux_features_dino.dtype={image_aux_features_dino.dtype}")
 
             (
                 image_aux_features_dino,
@@ -848,6 +849,7 @@ class CambrianMetaForCausalLM(ABC):
             image_aux_features_siglip = self.encode_images(
                 new_image_aux_list, encode_type="siglip"
             )
+            print(f"cambrian_arch: image_aux_features_siglip.dtype={image_aux_features_siglip.dtype}")
             image_aux_features_list = [
                 image_aux_features_siglip,
                 image_aux_features_dino,
