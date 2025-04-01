@@ -74,5 +74,6 @@ class SiglipVisionTower(BaseVisionTower):
                 images.to(device=self.device, dtype=self.dtype),
                 output_hidden_states=True,
             ).hidden_states[-1]
+            image_features = image_features.to(dtype=images.dtype)
             interp_features = self.interpolate(image_features)
             return interp_features
