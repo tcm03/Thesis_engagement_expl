@@ -113,7 +113,7 @@ class DinoVisionTower(BaseVisionTower):
             image_forward_outs = self.vision_tower.forward(
                 images.to(device=self.device, dtype=self.dtype)
             )
-            print(f"dino: image_forward_outs.dtype: {image_forward_outs.dtype}")
+            print(f"dino: image_forward_outs.hidden_states[-1].dtype: {image_forward_outs.hidden_states[-1].dtype}")
             # logger.warning(f"image_forward_outs shape: {image_forward_outs['last_hidden_state'].shape}")
             image_features = self.feature_select(image_forward_outs).to(images.dtype)
             # logger.warning(f"image_features shape: {image_features.shape}")

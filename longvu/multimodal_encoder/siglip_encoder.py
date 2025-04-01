@@ -69,7 +69,7 @@ class SiglipVisionTower(BaseVisionTower):
         return image_features
 
     def _forward(self, images, interpolate_token=576):
-        
+
         with torch.set_grad_enabled(self.unfreeze_mm_vision_tower):
             print(f"siglip: images.dtype: {images.dtype}")
             image_features = self.vision_tower.forward(
@@ -77,5 +77,6 @@ class SiglipVisionTower(BaseVisionTower):
                 output_hidden_states=True,
             ).hidden_states[-1]
             print(f"siglip: image_features.dtype: {image_features.dtype}")
+            image_features = image_features.to(dtype=images.dtype)
             interp_features = self.interpolate(image_features)
             return interp_features
