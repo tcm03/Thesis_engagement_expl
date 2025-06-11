@@ -36,6 +36,8 @@ from transformers import (
     BitsAndBytesConfig,
 )
 
+import logging
+
 
 def load_pretrained_model(
     model_path,

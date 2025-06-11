@@ -74,6 +74,7 @@ class SiglipVisionTower(BaseVisionTower):
                 images.to(device=self.device, dtype=self.dtype),
                 output_hidden_states=True,
             ).hidden_states[-1]
-            image_features = image_features.to(dtype=images.dtype)
+            # image_features = image_features.to(dtype=images.dtype) # this converts to fp32, I want it at fp16
             interp_features = self.interpolate(image_features)
+            torch.cuda.empty_cache()
             return interp_features

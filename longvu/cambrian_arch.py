@@ -33,6 +33,8 @@ from .multimodal_encoder.builder import build_vision_tower_aux_list
 from .multimodal_projector.builder import build_vision_projector
 from .vision_sampler import VisionTokenSampler
 
+import logging
+
 IS_XLA_AVAILABLE = False
 
 
@@ -830,7 +832,7 @@ class CambrianMetaForCausalLM(ABC):
             image_aux_features_dino = self.encode_images(
                 new_image_aux_list, encode_type="dino"
             )
-
+            torch.cuda.empty_cache()
             (
                 image_aux_features_dino,
                 split_sizes,
@@ -848,6 +850,7 @@ class CambrianMetaForCausalLM(ABC):
             image_aux_features_siglip = self.encode_images(
                 new_image_aux_list, encode_type="siglip"
             )
+            torch.cuda.empty_cache()
             image_aux_features_list = [
                 image_aux_features_siglip,
                 image_aux_features_dino,
@@ -904,7 +907,7 @@ class CambrianMetaForCausalLM(ABC):
                     .vision_query[query_group_i, :]
                     .view(1, 1, 1, -1)
                     .expand(bs, query_num, -1, -1)
-                )
+                ) # float16
                 global_context_feature_i = global_context_feature.expand(
                     -1, query_num, 1, -1
                 ).flatten(0, 1)
@@ -1302,7 +1305,6 @@ class CambrianMetaForCausalLM(ABC):
                 start_idx += split_size
             image_features = split_image_features
             frame_split_sizes = split_sizes
-
         _labels = labels
         _position_ids = position_ids
         _attention_mask = attention_mask

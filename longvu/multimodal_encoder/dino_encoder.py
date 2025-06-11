@@ -113,10 +113,12 @@ class DinoVisionTower(BaseVisionTower):
                 images.to(device=self.device, dtype=self.dtype)
             )
             # logger.warning(f"image_forward_outs shape: {image_forward_outs['last_hidden_state'].shape}")
-            image_features = self.feature_select(image_forward_outs).to(images.dtype)
+            # image_features = self.feature_select(image_forward_outs).to(images.dtype) # this converts to fp32, I want it at fp16
+            image_features = self.feature_select(image_forward_outs)
             # logger.warning(f"image_features shape: {image_features.shape}")
             interp_features = self.interpolate(image_features)
             # logger.warning(f"interp_features shape: {interp_features.shape}")
+            torch.cuda.empty_cache()
             return interp_features
 
     @property
