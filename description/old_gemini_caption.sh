@@ -1,11 +1,11 @@
 #!/bin/bash
 DATA_PATH="/media02/nthuy/SnapUGC/SnapUGC_0"
 JSON_PATH="/media02/nthuy/SnapUGC/SnapUGC_0/snapugc0_test.json"
-OUTPUT_FNAME="snapugc0_test_gemini_rawcap.json"
+OUTPUT_FNAME="snapugc0_test_explanation.json"
 MODEL_NAME="gemini-2.0-flash"
 PROMPT="Please describe the video in detail, start with the description right away and do not include prefixes such as 'Here is the description of the video: '."
 
-python gemini_caption.py \
+python description/old_gemini_caption.py \
     --data_path "$DATA_PATH" \
     --json_path "$JSON_PATH" \
     --output_path "$DATA_PATH" \

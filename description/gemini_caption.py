@@ -82,21 +82,21 @@ class GeminiPrompter:
 
 def main(args):
     client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-    video_path = "/media02/nthuy/SnapUGC/SnapUGC_0/train/train_7/8787be2d403e980fd2737ac42e6f25b7.mp4"
-    prompt_machine = GeminiPrompter(
-        system_prompt="Generate a continuous paragraph without any other formats or styles that conforms to the following requirements.",
-        engagement_label="not engaged",
-        category="quality"
-    )
-    caption = request_caption(
-        client, 
-        video_path, 
-        prompt=prompt_machine.get_prompt(), 
-        model_name=args.model_name,
-        backoff_factor=30
-    )
-    print(f"Prompt: {prompt_machine.get_prompt()}\nGenerated: {caption}")
-    return
+    # video_path = "/media02/nthuy/SnapUGC/SnapUGC_0/train/train_7/8787be2d403e980fd2737ac42e6f25b7.mp4"
+    # prompt_machine = GeminiPrompter(
+    #     system_prompt="Generate a continuous paragraph without any other formats or styles that conforms to the following requirements.",
+    #     engagement_label="not engaged",
+    #     category="quality"
+    # )
+    # caption = request_caption(
+    #     client, 
+    #     video_path, 
+    #     prompt=prompt_machine.get_prompt(), 
+    #     model_name=args.model_name,
+    #     backoff_factor=30
+    # )
+    # print(f"Prompt: {prompt_machine.get_prompt()}\nGenerated: {caption}")
+    # return
 
     with open(args.json_path, 'r') as f:
         data = json.load(f)
